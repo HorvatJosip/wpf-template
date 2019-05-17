@@ -1,0 +1,86 @@
+<Window x:Class="Template.DesktopClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:core="clr-namespace:Template.Core;assembly=Template.Core"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:p="clr-namespace:Template.Core.Resources.Localization;assembly=Template.Core"
+        xmlns:local="clr-namespace:Template.DesktopClient"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="{x:Static p:MainWindow.Title}"
+        Width="1200" Height="800">
+    <Window.DataContext>
+        <core:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <!--Border around the window-->
+    <Border BorderBrush="{StaticResource brushPrimary}"
+            BorderThickness="2"
+            Padding="8 2 8 8"
+            Background="{StaticResource brushSecondary}">
+        <!--Window content holder-->
+        <Grid Background="{StaticResource brushSecondary}">
+            <Grid.RowDefinitions>
+                <!--Title Bar-->
+                <RowDefinition Height="Auto"/>
+
+                <!--Gap-->
+                <RowDefinition Height="10"/>
+                
+                <!--Content-->
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Title bar-->
+            <Grid Background="Transparent">
+                <!--Title-->
+                <StackPanel Orientation="Horizontal">
+                    <!--Logo-->
+                    <Image Source="../Resources/Images/Logo.png"
+                           Height="50"
+                           Margin="0 0 10 0"/>
+
+                    <!--Text-->
+                    <TextBlock Text="{x:Static p:MainWindow.Title}"
+                               VerticalAlignment="Center"
+                               FontSize="{StaticResource fontSizeVeryLarge}"/>
+                </StackPanel>
+
+                <!--Buttons-->
+                <StackPanel HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                    <!--Minimize-->
+                    <Button Style="{StaticResource WindowButton}"
+                            Content="_"
+                            Command="{Binding MinimizeCommand}"/>
+                    
+                    <!--Maximize-->
+                    <Button Style="{StaticResource WindowButton}"
+                            Content="[]"
+                            Command="{Binding MaximizeCommand}"/>
+                    
+                    <!--Close-->
+                    <Button Style="{StaticResource WindowButton}"
+                            Content="X"
+                            Command="{Binding CloseCommand}"/>
+                </StackPanel>
+
+                <!--Title bar input bindings-->
+                <Grid.InputBindings>
+                    <!--Drag window on left click-->
+                    <MouseBinding Command="{Binding DragCommand}"
+                              Gesture="LeftClick"/>
+                </Grid.InputBindings>
+            </Grid>
+            
+            <!--Page-->
+            <Frame
+                Grid.Row="2"
+                Source="{Binding Page, Converter={local:PageEnumToPageConverter}}"
+                NavigationUIVisibility="Hidden"/>
+        </Grid>
+    </Border>
+</Window>
