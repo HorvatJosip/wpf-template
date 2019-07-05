@@ -18,7 +18,6 @@ namespace Template.DesktopClient
             var dialog = new FolderBrowserDialog
             {
                 Description = description,
-                ShowNewFolderButton = false,
                 SelectedPath = selectedDirectory
             };
 

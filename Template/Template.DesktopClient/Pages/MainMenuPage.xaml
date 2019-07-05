@@ -9,19 +9,40 @@
       xmlns:core="clr-namespace:Template.Core;assembly=Template.Core"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel
+            HorizontalAlignment="Right"
+            Orientation="Horizontal"
+            Margin="0 15 15 0">
+            <TextBlock 
+                Margin="0 0 5 0"
+                Text="{DynamicResource Language}"
+                FontSize="{StaticResource fontSizeLarge}"/>
+            <ComboBox
+                ItemsSource="{Binding Languages}"
+                SelectedItem="{Binding Language}"
+                DisplayMemberPath="EnglishName"
+                SelectedIndex="0"/>
+        </StackPanel>
 
-    <StackPanel
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center">
-        <TextBlock
-            Text="{Binding Hello}"
-            Margin="0 0 0 30"
-            FontSize="{StaticResource fontSizeVeryLarge}"
-            HorizontalAlignment="Center"/>
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <TextBlock
+                Text="{Binding Hello}"
+                Margin="0 0 0 30"
+                FontSize="{StaticResource fontSizeVeryLarge}"
+                HorizontalAlignment="Center"/>
 
-        <Button
-            Content="Say Hello"
-            Style="{StaticResource LargeButton}"
-            Command="{Binding SayHelloCommand}"/>
-    </StackPanel>
+            <Button
+                Content="{DynamicResource btnHello}"
+                Style="{StaticResource LargeButton}"
+                Command="{Binding SayHelloCommand}"/>
+        </StackPanel>
+    </Grid>
 </local:BasePage>

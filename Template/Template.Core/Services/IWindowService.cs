@@ -3,55 +3,91 @@ using System;
 namespace Template.Core
 {
     /// <summary>
+    /// Event args for <see cref="IWindowService.PageChanged"/> event.
+    /// </summary>
+    public class PageChangedEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Page that changed.
+        /// </summary>
+        public Page Page { get; set; }
+
+        /// <summary>
+        /// Window on which the page changed.
+        /// </summary>
+        public Window Window { get; set; }
+    }
+
+    /// <summary>
     /// Service used for working with window.
     /// </summary>
     public interface IWindowService
     {
         /// <summary>
-        /// Current page that is displayed.
+        /// Event that triggers once a page is changed.
         /// </summary>
-        Page Page { get; set; }
+        event EventHandler<PageChangedEventArgs> PageChanged;
 
         /// <summary>
-        /// Window that is currently in focus.
+        /// Opens a window if it isn't already open.
         /// </summary>
-        Window Window { get; set; }
-
-        bool 
-
-        /// <summary>
-        /// Event that is called when the <see cref="Page"/> changes.
-        /// </summary>
-        event EventHandler<Page> PageChanged;
+        /// <param name="window">Window to open.</param>
+        /// <param name="previousWindowAction">What to do with previous window.</param>
+        bool Open(Window window, WindowAction? previousWindowAction);
 
         /// <summary>
-        /// Event that is called when the <see cref="Window"/> changes.
+        /// Changes the page to the specified one on the specified window.
         /// </summary>
-        event EventHandler<Window> WindowChanged;
+        /// <param name="page">Page to change to.</param>
+        /// <param name="window">Window on which the page should be changed.
+        /// <para>If left null, current window will be used.</para>
+        /// </param>
+        bool ChangePage(Page page, Window? window = null);
 
         /// <summary>
-        /// Allows window movement.
+        /// Closes the specified window if it is currently open.
         /// </summary>
-        void DragMove();
+        /// <param name="window">Window to close.
+        /// <para>If left null, current window will be used.</para>
+        /// </param>
+        bool Close(Window? window = null);
 
         /// <summary>
-        /// Minimizes the current window.
+        /// Tries to move the specified window on drag.
         /// </summary>
-        void Minimize();
+        /// <param name="window">Window to move.
+        /// <para>If left null, current window will be used.</para>
+        /// </param>
+        /// <returns></returns>
+        bool DragMove(Window? window = null);
 
         /// <summary>
-        /// Maximizes or restores the current window's size.
+        /// Minimizes the specified window.
         /// </summary>
-        void MaximizeOrRestore();
+        /// <param name="window">Window to minimize.
+        /// <para>If left null, current window will be used.</para>
+        /// </param>
+        /// <returns></returns>
+        bool Minimize(Window? window = null);
 
         /// <summary>
-        /// Closes the current window.
+        /// Maximizes or restores the specified window's size.
         /// </summary>
-        void Close();
+        /// <param name="window">Window to maximize or restore.
+        /// <para>If left null, current window will be used.</para>
+        /// </param>
+        /// <returns></returns>
+        bool MaximizeOrRestore(Window? window = null);
 
         /// <summary>
-        /// Sets the width and height of the window.
+        /// Changes the size of the specified window.
         /// </summary>
-        void SetWindowSize(double width, double height);
+        /// <param name="width">Desired width of the window.</param>
+        /// <param name="height">Desired height of the window.</param>
+        /// <param name="window">Window whose size needs to be changed.
+        /// <para>If left null, current window will be used.</para>
+        /// </param>
+        /// <returns></returns>
+        bool ChangeSize(double width, double height, Window? window = null);
     }
 }

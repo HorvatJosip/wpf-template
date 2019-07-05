@@ -1,7 +1,6 @@
 using System.Windows;
-using System.Windows.Input;
 
-namespace Template.DesktopClient
+namespace Template.DesktopClient.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

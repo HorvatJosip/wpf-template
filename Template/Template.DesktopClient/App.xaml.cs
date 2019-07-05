@@ -1,8 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
-using Template.Core;
-using System.Globalization;
-using System.Threading;
 using System.Windows;
+using Template.Core;
 
 namespace Template.DesktopClient
 {
@@ -13,15 +11,11 @@ namespace Template.DesktopClient
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            // Setup the localization and globalization
-            ///*
-            var culture = new CultureInfo("hr-HR");
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
-            //*/
-
             // Create the window service
             var windowService = new WindowService();
+
+            // Create the localizer service
+            var localizerService = new LocalizerService();
 
             // Setup the dependencies
             Core.Core.Setup(collection =>
@@ -34,6 +28,9 @@ namespace Template.DesktopClient
 
                 // Add the configuration service to the service collection
                 collection.AddSingleton<IConfigurationService>(new ConfigurationService());
+
+                // Add the localizer service to the service collection
+                collection.AddSingleton<ILocalizerService>(localizerService);
             });
 
             // Setup the default window style in order to set application font
@@ -43,10 +40,13 @@ namespace Template.DesktopClient
                 DefaultValue = FindResource(type)
             });
 
+            // Setup current language based on starting languages in resource dictionaries
+            localizerService.ChangeLanguage("en-US");
+
             // Setup the starting window and page using the window service
-            windowService.Window = Core.Window.MainWindow;
-            Current.MainWindow = windowService.CurrentWindow;
-            windowService.Page = Page.MainMenu;
+            windowService.Open(Core.Window.MainWindow, null);
+            Current.MainWindow = windowService.CurrentWindow.UI;
+            windowService.ChangePage(Page.MainMenu);
             Current.MainWindow.ShowDialog();
         }
     }

@@ -25,7 +25,7 @@ namespace Template.Core
             var windowService = Core.Get<IWindowService>();
 
             // Listen to page change event
-            windowService.PageChanged += (sender, page) => Page = page;
+            windowService.PageChanged += (sender, e) => Page = e.Page;
 
             // Setup the window commands
             MinimizeCommand = new RelayCommand(() => windowService.Minimize());

@@ -7,7 +7,7 @@ namespace Template.DesktopClient
     /// <summary>
     /// Used for converting <see cref="Core.Page"/> into <see cref="BasePage{VM}"/> path.
     /// </summary>
-    [ValueConversion(typeof(Core.Page), typeof(System.Windows.Controls.Page))]
+    [ValueConversion(typeof(Core.Page), typeof(Uri))]
     public class PageEnumToPageConverter : BaseConverter<PageEnumToPageConverter>
     {
         /// <summary>
@@ -22,9 +22,12 @@ namespace Template.DesktopClient
         /// <returns></returns>
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            // If we received a page...
             if (value is Core.Page page)
+                // Return a relative uri to the page
                 return new Uri($"../Pages/{page}Page.xaml", UriKind.Relative);
 
+            // Otherwise, return null
             return null;
         }
 

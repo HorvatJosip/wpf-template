@@ -27,6 +27,11 @@ namespace Template.Core
         public static ILogger Logger => Get<ILogger>();
 
         /// <summary>
+        /// Localizer used for this project.
+        /// </summary>
+        public static ILocalizerService Localizer => Get<ILocalizerService>();
+
+        /// <summary>
         /// Used for setting up services.
         /// </summary>
         /// <param name="addServices">Optional method to add services to the collection.</param>
@@ -41,6 +46,9 @@ namespace Template.Core
                 // Add debug logger
                 loggingBuilder.AddDebug();
             });
+
+            // Add main menu page view model
+            services.AddSingleton(typeof(MainMenuPageViewModel));
 
             // Allow the insertion of services
             addServices?.Invoke(services);

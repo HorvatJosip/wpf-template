@@ -14,5 +14,7 @@ namespace Template.Core
         /// Window used for displaying a message.
         /// </summary>
         MessageWindow,
+
+        TestWindow,
     }
 }
