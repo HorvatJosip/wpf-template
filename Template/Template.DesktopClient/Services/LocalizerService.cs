@@ -57,28 +57,50 @@ namespace Template.DesktopClient
             return true;
         }
 
-        /// <summary>
-        /// Implementation of <see cref="ILocalizerService.Get(string)"/>.
-        /// </summary>
-        public string Get(string key)
+        private string GetItem(string key, string dictionary = null, int? index = null)
         {
-            foreach (var dictionary in dictionaries)
-                if (dictionary.Contains(key))
-                    return dictionary[key].ToString();
+            ResourceDictionary dic = null;
 
-            return null;
+            if (dictionary != null)
+                dic = dictionaries.Find(d => d.Source.OriginalString.Contains(dictionary));
+
+            if (dic == null || !dic.Contains(key))
+                foreach (var d in dictionaries)
+                    if (d.Contains(key))
+                    {
+                        dic = d;
+                        break;
+                    }
+
+            if (dic == null)
+                return null;
+
+            var item = dic[key];
+
+            if (index.HasValue)
+                item = (item as string[])[index.Value];
+
+            return item?.ToString();
         }
 
         /// <summary>
-        /// Implementation of <see cref="ILocalizerService.Get(string, string)"/>.
+        /// Implementation of <see cref="ILocalizerService.this[string]"/>.
         /// </summary>
-        public string Get(string dictionaryName, string key)
-        {
-            foreach (var dictionary in dictionaries)
-                if(dictionary.Source.OriginalString.Contains(dictionaryName) && dictionary.Contains(key))
-                    return dictionary[key].ToString();
+        public string this[string key] => GetItem(key);
 
-            return null;
-        }
+        /// <summary>
+        /// Implementation of <see cref="ILocalizerService.this[string, string]"/>.
+        /// </summary>
+        public string this[string dictionaryName, string key] => GetItem(key, dictionaryName);
+
+        /// <summary>
+        /// Implementation of <see cref="ILocalizerService.this[string, string, int]"/>.
+        /// </summary>
+        public string this[string dictionaryName, string key, int index] => GetItem(key, dictionaryName, index);
+
+        /// <summary>
+        /// Implementation of <see cref="ILocalizerService.this[string, int]"/>.
+        /// </summary>
+        public string this[string key, int index] => GetItem(key, null, index);
     }
 }

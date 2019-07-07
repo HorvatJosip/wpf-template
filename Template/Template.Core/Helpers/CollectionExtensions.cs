@@ -26,8 +26,8 @@ namespace Template.Core
         /// <param name="collection">Collection from which the element will be picked.</param>
         /// <returns></returns>
         public static T RandomElement<T>(this IEnumerable<T> collection)
-            => collection.IsNullOrEmpty() 
-                ? default(T) 
+            => collection.IsNullOrEmpty()
+                ? default(T)
                 : collection.ElementAt(Utils.Rng.Next(collection.Count()));
 
         /// <summary>

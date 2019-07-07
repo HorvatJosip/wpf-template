@@ -10,11 +10,15 @@
                 <!-- Styles -->
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/Inputs.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/Labels.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/Panels.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Controls.xaml"/>
                 
                 <!-- Localization -->
                 <ResourceDictionary Source="Resources/Localization/en-US/App.xaml"/>
                 <ResourceDictionary Source="Resources/Localization/en-US/MainMenuPage.xaml"/>
+                <ResourceDictionary Source="Resources/Localization/en-US/LoginPage.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

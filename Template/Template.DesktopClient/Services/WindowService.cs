@@ -219,7 +219,7 @@ namespace Template.DesktopClient
                 else
                 {
                     // Clear the windows starting from the end of the list
-                    for(int i = windowNavigator.Count - 1; i >= removeStart; i--)
+                    for (int i = windowNavigator.Count - 1; i >= removeStart; i--)
                         // Closing will in turn remove them from the navigator
                         windowNavigator[i].UI.Close();
 

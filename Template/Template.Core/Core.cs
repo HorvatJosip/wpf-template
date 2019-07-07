@@ -47,8 +47,12 @@ namespace Template.Core
                 loggingBuilder.AddDebug();
             });
 
-            // Add main menu page view model
+            // Add custom services
+            services.AddSingleton<ISecurityService<DAL.Login>>(new SecurityService());
+
+            // Add view models that require dependency injection
             services.AddSingleton(typeof(MainMenuPageViewModel));
+            services.AddSingleton(typeof(LoginPageViewModel));
 
             // Allow the insertion of services
             addServices?.Invoke(services);
@@ -91,7 +95,7 @@ namespace Template.Core
             if (Logger != null)
                 // Log the error with it
                 Logger.Log(LogLevel.Error, exception, message);
-            
+
             // Otherwise...
             else
             {

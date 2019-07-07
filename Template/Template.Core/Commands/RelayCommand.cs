@@ -40,8 +40,15 @@ namespace Template.Core
         /// Executes the given command.
         /// </summary>
         /// <param name="parameter">Parameter to use while executing the command.</param>
-        public void Execute(object parameter) => execute?.Invoke(parameter); 
+        public void Execute(object parameter) => execute?.Invoke(parameter);
 
         #endregion
+    }
+
+    public class RelayCommand<T> : RelayCommand
+    {
+        public RelayCommand(Action<T> execute) : base(param => execute((T)param))
+        {
+        }
     }
 }

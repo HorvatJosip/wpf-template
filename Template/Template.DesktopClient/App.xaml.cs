@@ -20,16 +20,10 @@ namespace Template.DesktopClient
             // Setup the dependencies
             Core.Core.Setup(collection =>
             {
-                // Add the window service to the service collection
+                // Add services to the service collection
                 collection.AddSingleton<IWindowService>(windowService);
-
-                // Add the chooser dialogs service to the service collection
                 collection.AddSingleton<IChooserDialogsService>(new ChooserDialogsService());
-
-                // Add the configuration service to the service collection
                 collection.AddSingleton<IConfigurationService>(new ConfigurationService());
-
-                // Add the localizer service to the service collection
                 collection.AddSingleton<ILocalizerService>(localizerService);
             });
 
@@ -46,7 +40,7 @@ namespace Template.DesktopClient
             // Setup the starting window and page using the window service
             windowService.Open(Core.Window.MainWindow, null);
             Current.MainWindow = windowService.CurrentWindow.UI;
-            windowService.ChangePage(Page.MainMenu);
+            windowService.ChangePage(Page.Login);
             Current.MainWindow.ShowDialog();
         }
     }

@@ -6,9 +6,13 @@ namespace Template.Core
     public enum Page
     {
         /// <summary>
+        /// Login.
+        /// </summary>
+        Login,
+
+        /// <summary>
         /// Main menu.
         /// </summary>
         MainMenu,
-        VideoPicker,
     }
 }

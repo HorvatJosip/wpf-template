@@ -15,7 +15,7 @@ namespace Template.Core
 
         #region Properties
 
-        public Page Page { get; set; } 
+        public Page Page { get; set; }
 
         #endregion
 

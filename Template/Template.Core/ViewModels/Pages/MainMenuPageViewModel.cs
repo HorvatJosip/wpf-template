@@ -34,7 +34,7 @@ namespace Template.Core
             this.localizerService = localizerService;
             var languageList = Core.Configuration.Get("Cultures").Split(',');
             Languages = languageList.Select(culture => new CultureInfo(culture)).ToList();
-            SayHelloCommand = new RelayCommand(() => Hello = Core.Localizer.Get("Hello"));
+            SayHelloCommand = new RelayCommand(() => Hello = Core.Localizer["Hello"]);
         }
     }
 }

@@ -3,8 +3,10 @@
     <Color x:Key="primary">#04d8d1</Color>
     <Color x:Key="secondary">#efefef</Color>
     <Color x:Key="tertiary">#323232</Color>
+    <Color x:Key="error">#FF0000</Color>
 
     <SolidColorBrush x:Key="brushPrimary" Color="{StaticResource primary}"/>
     <SolidColorBrush x:Key="brushSecondary" Color="{StaticResource secondary}"/>
     <SolidColorBrush x:Key="brushTertiary" Color="{StaticResource tertiary}"/>
+    <SolidColorBrush x:Key="brushError" Color="{StaticResource error}"/>
 </ResourceDictionary>
